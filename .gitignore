@@ -6,3 +6,17 @@ dist-desktop/
 .DS_Store
 native/build/
 *.exe.tmp
+/native/mupdf-1.24.9-source/
+/native/mupdf.tar.gz
+/native/tessdata/*.traineddata
+/release/*.exe
+/release/*.dll
+/release/*.pdb
+/test-out/
+/dist/
+/target/
+/coverage/
+*.o
+*.a
+*.tmp
+Thumbs.db

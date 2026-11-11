@@ -1,28 +1,33 @@
 #!/bin/sh
-# Сборка PDF-Studio.exe для Windows (32-бит, статически слинковано).
-#
-#   1) собрать библиотеки MuPDF под mingw:
-#        tar xzf mupdf-1.24.9-source.tar.gz -C /tmp
-#        cd /tmp/mupdf-1.24.9-source && make OS=mingw32-cross build=release libs USE_TESSERACT=no -j2
-#   2) ./build.sh
-#
-# Результат: release/PDF-Studio.exe — один файл без зависимостей (Windows XP…11).
-# Внимание: не собирайте в каталог с именем dist/build/out — такие каталоги
-# не попадают в снапшот воркспейса, и готовый exe «пропадёт».
+# Build the statically linked 32-bit Windows application.
+# Usage: ./fetch-mupdf.sh && ./build.sh
 
-set -e
-CROSS=i686-w64-mingw32
-MUPDF=${MUPDF:-/tmp/mupdf-1.24.9-source}
+set -eu
+
+CROSS=${CROSS:-i686-w64-mingw32}
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+REPO_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+MUPDF=${MUPDF:-$SCRIPT_DIR/mupdf-1.24.9-source}
+OUT=${OUT:-$REPO_DIR/release}
 LIBDIR=${LIBDIR:-$MUPDF/build/mingw32-cross/release-tesseract}
-if [ ! -f "$LIBDIR/libmupdf.a" ]; then LIBDIR="$MUPDF/build/mingw32-cross/release"; fi
-OUT=${OUT:-../release}
+if [ ! -f "$LIBDIR/libmupdf.a" ]; then
+    if [ -f "$MUPDF/build/mingw32-cross/release/libmupdf.a" ]; then
+        LIBDIR="$MUPDF/build/mingw32-cross/release"
+    fi
+fi
 
-cd "$(dirname "$0")"
-mkdir -p build "$OUT"
+if [ ! -f "$LIBDIR/libmupdf.a" ] || [ ! -f "$LIBDIR/libmupdf-third.a" ]; then
+    echo "MuPDF static libraries not found in $LIBDIR" >&2
+    echo "Run native/fetch-mupdf.sh first or set MUPDF/LIBDIR." >&2
+    exit 1
+fi
 
-$CROSS-windres src/app.rc -O coff -o build/app.res
+cd "$SCRIPT_DIR"
+mkdir -p "$SCRIPT_DIR/build" "$OUT"
 
-$CROSS-gcc \
+"$CROSS-windres" src/app.rc -O coff -o build/app.res
+
+"$CROSS-gcc" \
   -O2 -s -municode -mwindows \
   -D_WIN32_WINNT=0x0501 -DWINVER=0x0501 \
   -fno-asynchronous-unwind-tables \
@@ -33,10 +38,9 @@ $CROSS-gcc \
   -lstdc++ -lcomdlg32 -lcomctl32 -lwinpthread -lgdi32 -luser32 -lshell32 -lole32 -ladvapi32 -lws2_32 \
   -static -static-libgcc -static-libstdc++
 
-# UPX (необязательно, но очень желательно: 40 МБ -> 21 МБ)
 if [ "${NOUPX:-0}" != "1" ] && command -v upx >/dev/null 2>&1; then
-  upx -q --best --lzma --no-backup "$OUT/PDF-Studio.exe" || echo "UPX не сработал, оставляем несжатый exe"
+  upx -q --best --lzma --no-backup "$OUT/PDF-Studio.exe" || echo "UPX failed; keeping uncompressed executable"
 fi
 
-echo "готово: $OUT/PDF-Studio.exe"
-ls -l "$OUT/PDF-Studio.exe"
+echo "Built: $OUT/PDF-Studio.exe"
+ls -lh "$OUT/PDF-Studio.exe"
