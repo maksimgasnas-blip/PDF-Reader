@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  navigation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile navigation tests
+        run: cc -std=c99 -Wall -Wextra -Werror tests/nav_test.c -o nav_test
+      - name: Run navigation tests
+        run: ./nav_test
+      - name: Check shell scripts
+        run: sh -n native/build.sh native/fetch-mupdf.sh

@@ -1,0 +1,18 @@
+
+/* шрифты текстового процессора: 4 семейства x 4 начертания (SIL OFL) */
+300 RCDATA "../assets/fonts/LiberationSerif-Regular.ttf"
+301 RCDATA "../assets/fonts/LiberationSerif-Bold.ttf"
+302 RCDATA "../assets/fonts/LiberationSerif-Italic.ttf"
+303 RCDATA "../assets/fonts/LiberationSerif-BoldItalic.ttf"
+304 RCDATA "../assets/fonts/LiberationSans-Regular.ttf"
+305 RCDATA "../assets/fonts/LiberationSans-Bold.ttf"
+306 RCDATA "../assets/fonts/LiberationSans-Italic.ttf"
+307 RCDATA "../assets/fonts/LiberationSans-BoldItalic.ttf"
+308 RCDATA "../assets/fonts/LiberationMono-Regular.ttf"
+309 RCDATA "../assets/fonts/LiberationMono-Bold.ttf"
+310 RCDATA "../assets/fonts/LiberationMono-Italic.ttf"
+311 RCDATA "../assets/fonts/LiberationMono-BoldItalic.ttf"
+312 RCDATA "../assets/fonts/LiberationSansNarrow-Regular.ttf"
+313 RCDATA "../assets/fonts/LiberationSansNarrow-Bold.ttf"
+314 RCDATA "../assets/fonts/LiberationSansNarrow-Italic.ttf"
+315 RCDATA "../assets/fonts/LiberationSansNarrow-BoldItalic.ttf"

@@ -1,0 +1,12 @@
+*.sh text eol=lf
+*.py text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.rc text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.pdf binary
+*.ttf binary
+*.traineddata binary
+*.ico binary
+*.png binary

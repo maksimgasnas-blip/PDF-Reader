@@ -1,0 +1,38 @@
+#include <windows.h>
+
+1 ICON "../assets/icon.ico"
+
+#include "fonts.rc"
+
+/* языковые модели OCR (tessdata_fast, rus+eng) — распаковываются во временный каталог */
+200 RCDATA "../tessdata/rus.traineddata"
+201 RCDATA "../tessdata/eng.traineddata"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0x0L
+FILEOS 0x40004L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "PDF Studio"
+            VALUE "FileDescription", "PDF \042студия\042 - редактор \043 читатель PDF"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "PDF-Studio"
+            VALUE "OriginalFilename", "PDF-Studio.exe"
+            VALUE "ProductName", "PDF \042студия\042"
+            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "LegalCopyright", "AGPL-3.0, MuPDF (c) Artifex"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

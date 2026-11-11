@@ -1,0 +1,47 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 738 >>
+stream
+0.043 0.239 0.478 rg
+0 0 595.28 841.89 re f
+1 1 1 rg
+BT /F1 16 Tf 60 760 Td (FEDERAL STATE BUDGETARY EDUCATIONAL INSTITUTION) Tj ET
+BT /F1 14 Tf 60 738 Td (of higher education) Tj ET
+BT /F1 16 Tf 60 716 Td (SLAVYANSK-ON-KUBAN STATE PEDAGOGICAL INSTITUTE) Tj ET
+BT /F1 15 Tf 60 640 Td (Written work of R. Pismennyy, 2026) Tj ET
+BT /F1 15 Tf 60 600 Td (Theme: development of a PDF editor for Windows) Tj ET
+BT /F1 15 Tf 60 560 Td (Supervisor: professor Ivanov I. I.) Tj ET
+BT /F1 15 Tf 60 520 Td (Slavyansk-na-Kubani, 2026) Tj ET
+1 1 1 rg
+72 420 452 80 re f
+0 0 0 rg
+BT /F1 13 Tf 84 480 Td (White box with black text: this block must stay readable) Tj ET
+BT /F1 13 Tf 84 456 Td (when it is edited, the patch must be white, not blue.) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000247 00000 n 
+0000001036 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1133
+%%EOF

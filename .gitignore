@@ -1,0 +1,8 @@
+node_modules/
+test-out/
+dist-desktop/
+.wine-builder/
+*.log
+.DS_Store
+native/build/
+*.exe.tmp

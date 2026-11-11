@@ -1,0 +1,44 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 444 >>
+stream
+0.85 0.15 0.15 rg
+0 0 297.64 841.89 re f
+0.10 0.25 0.75 rg
+297.64 0 297.64 841.89 re f
+0.95 0.85 0.2 rg
+0 0 595.28 60 re f
+1 1 1 rg
+BT /F1 16 Tf 60 760 Td (Split background: red left, blue right) Tj ET
+BT /F1 15 Tf 60 700 Td (A line of text crossing the red-blue border) Tj ET
+BT /F1 15 Tf 60 660 Td (Second line, also crossing the border of colours) Tj ET
+0 0 0 rg
+BT /F1 15 Tf 60 120 Td (black text over the yellow strip at the bottom) Tj ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000247 00000 n 
+0000000742 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+839
+%%EOF
