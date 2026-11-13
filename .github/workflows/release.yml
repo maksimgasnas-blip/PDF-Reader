@@ -27,6 +27,10 @@ jobs:
             mingw-w64-i686-pkgconf
             mingw-w64-i686-zlib
             mingw-w64-i686-binutils
+            mingw-w64-i686-crt-git
+            mingw-w64-i686-headers-git
+            mingw-w64-i686-winpthreads-git
+            mingw-w64-i686-tools-git
             make
             patch
             python
