@@ -1,6 +1,6 @@
 #!/bin/sh
 # Download and build MuPDF 1.24.9 for the 32-bit Windows application.
-# Requires i686-w64-mingw32 gcc/g++, make, curl or wget, and Python 3.
+# Requires i686-w64-mingw32 gcc/g++, make, curl or wget, Python 3 and unzip.
 # Set WORK=/path/to/cache to keep downloaded sources outside this repository.
 
 set -eu
@@ -12,24 +12,18 @@ mkdir -p "$WORK"
 WORK=$(CDPATH= cd -- "$WORK" && pwd)
 SRC="$WORK/mupdf-$VER-source"
 ARCHIVE="$WORK/mupdf.tar.gz"
-URL="https://mupdf.com/downloads/archive/mupdf-$VER-source.tar.gz"
+URL="https://github.com/ArtifexSoftware/mupdf.git"
 
-if [ ! -d "$SRC" ]; then
-    echo "Downloading MuPDF $VER"
-    if [ -f "$ARCHIVE" ] && ! tar tzf "$ARCHIVE" >/dev/null 2>&1; then
-        rm -f "$ARCHIVE"
-    fi
-    if [ ! -f "$ARCHIVE" ]; then
-        if command -v curl >/dev/null 2>&1; then
-            curl -L --fail -o "$ARCHIVE" "$URL"
-        elif command -v wget >/dev/null 2>&1; then
-            wget -O "$ARCHIVE" "$URL"
-        else
-            echo "Install curl or wget to download MuPDF." >&2
-            exit 1
-        fi
-    fi
-    tar xzf "$ARCHIVE" -C "$WORK"
+if [ ! -d "$SRC/.git" ]; then
+    echo "Cloning MuPDF $VER including pinned third-party submodules"
+    GIT_TMP=$(mktemp -d "${TMPDIR:-/tmp}/pdfstudio-mupdf.XXXXXX")
+    trap 'rm -rf "$GIT_TMP"' 0 HUP INT TERM
+    git clone --depth 1 --branch "$VER" --recurse-submodules "$URL" "$GIT_TMP/source"
+    cp -a "$GIT_TMP/source/." "$SRC/"
+    rm -rf "$GIT_TMP"
+    trap - 0 HUP INT TERM
+else
+    git -C "$SRC" -c protocol.file.allow=always submodule update --init --recursive
 fi
 
 # mingw-w64's stat type may not match MuPDF's legacy _wstat declaration.
@@ -54,9 +48,20 @@ with open(path, "w", encoding="utf-8", newline="") as f:
 PY
 fi
 
+# Avoid giant string literals for bundled font resources; embed font binaries
+# as object data instead (also avoids the C literal length limit on GCC).
+MAKEFILE="$SRC/Makefile"
+if ! grep -q 'HAVE_OBJCOPY=yes' "$MAKEFILE"; then
+    sed -i '/^ifeq "$(OS)" "mingw32-cross"$/,/^endif$/ s/^  HAVE_WIN32=yes$/  HAVE_WIN32=yes\n  HAVE_OBJCOPY=yes/' "$MAKEFILE"
+fi
+
 echo "Building MuPDF and Tesseract libraries"
 cd "$SRC"
-make OS=mingw32-cross build=release libs tesseract=yes -j2
+make OS=mingw32-cross build=release USE_SYSTEM_LIBS=no USE_SYSTEM_ZLIB=no USE_SYSTEM_LCMS2=no OBJCOPY=i686-w64-mingw32-objcopy libs tesseract=yes -j1
+
+# Bundle the exact MuPDF and pinned third-party source used by this build.
+tar czf "$ARCHIVE" -C "$WORK" --exclude="mupdf-$VER-source/.git" --exclude="mupdf-$VER-source/build" "mupdf-$VER-source"
 
 echo "MuPDF libraries are ready in: $SRC/build/mingw32-cross/release-tesseract"
+echo "MuPDF source archive: $ARCHIVE"
 echo "Next: run native/build.sh"
